@@ -1,6 +1,6 @@
 ```typescript
 /*보통 명시적 표현은 최소한으로 사용하는게 좋음 가능한 Typescript가 추론하는 것이 좋음*/
-----------------------------------------------------------------------
+//----------------------------------------------------------------------
 let num : number = 1;
 let str : String = 'hello';
 let bool : boolean = false;
@@ -61,4 +61,87 @@ type  PersonInfo_2 = {
 
 const number2 : readonly number[] = [1,2,3,4];
 // number2.push(5) => error
+
+
+// void, never, unknown
+
+let a: unknown;
+if(typeof a === 'number'){
+    let b = a + 1;
+}
+if(typeof a === 'string'){
+    let b = a.toUpperCase();
+}
+
+
+
+function hello(name : string | number){
+    if(typeof name ==='string'){
+        name
+    }else if(typeof name ==='number'){
+        name
+    }else{
+        name // Type never
+    }
+}
+
+
+
+//Call Signatures --------------------------
+
+type Add = (a:number, b:number)=> number;
+const add:Add = (a,b) => a+b;
+
+//------------------------------------------
+
+//method Overloading -----------------------
+
+type Add2 = {
+    (a:number, b:number): number
+    (a:number, b:string): number
+    };
+
+const add2: Add2=(a,b)=>{
+    if(typeof b === "string")return a;
+    return a+b;
+}
+
+type Add3={
+    (a:number, b:number) : number
+    (a:number, b:number, c:number) : number
+}
+
+const add3:Add3 =(a,b,c?:number) => {
+    if(c){
+        return a+b+c;
+    }
+    return a+b
+}
+
+add3(1,2)
+add3(1,2,3)
+// => 둘다 오류 X
+
+//------------------------------------------
+
+// Polymorphism (Genereic Type)
+type SuperPrint = {
+    <T,M>(arr:T[], b?:M ):void
+}
+
+const superPrint : SuperPrint = (arr,b?)=>{
+    arr.forEach(i => console.log(i))
+    if(b)console.log(b)
+}
+
+superPrint([1,2,3,4],"hello");
+superPrint([1,2,3,false]);
+superPrint([1,"hello",true,4]);
+
+/** 
+ * 
+ * superPrint<number>([1,2,3,4]) //=> generic을 직접 지정 가능
+ * 
+ *  */ 
+// -----------------------------------------
 ```
