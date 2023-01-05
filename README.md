@@ -143,5 +143,38 @@ superPrint([1,"hello",true,4]);
  * superPrint<number>([1,2,3,4]) //=> generic을 직접 지정 가능
  * 
  *  */ 
-// -----------------------------------------
+// --------------------------------------------------
+
+
+
+//TS Classes-----------------------------------------
+
+//추상 클래스 안에서 추상 메소드 가능 / 일반 클래스 선언 가능
+abstract class User{
+constructor(
+        protected firstName:String,
+        private lastName:String,
+        private nickName: String
+    ){}
+    abstract getNicName():void
+
+    public getFullName(){
+        return `${this.firstName} ${this.lastName}`
+    }
+}
+class Player extends User{
+
+    getNicName(){
+        console.log(this.firstName);
+    }
+    
+}
+
+const nico = new Player("kim","keunseop","man");
+
+//nico.firstName => error
+console.log(nico.getFullName());
+nico.getNicName()
+
+// ---------------------------------------------
 ```
